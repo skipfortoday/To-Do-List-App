@@ -20,7 +20,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
 
   const [itemName, setItemName] = useState("");
   const [priority, setPriority] = useState("very-high");
-  // const [selectState, setSelectState] = useState({});
+  const [selectState, setSelectState] = useState({});
 
   useEffect(() => {
     if (errUpdateItem !== null) {
@@ -61,17 +61,17 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     if (editedItem) {
       setItemName(editedItem.title);
       setPriority(editedItem.priority);
-      // setSelectState(
-      //   options.find((option) => option.value === editedItem.priority)
-      // );
+      setSelectState(
+        options.find((option) => option.value === editedItem.priority)
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
   const formatOptionLabel = ({ value, label }) => (
     <div
-      data-cy="modal-edit-priority-item"
       className="d-flex align-items-center"
+      data-cy="modal-update-priority-item"
     >
       <div className={`label-indicator ${value}`}></div>
       <div>{label}</div>
@@ -87,61 +87,63 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     updateItem({ data, id: editedItem.id });
   };
 
-  // const handleChangeSelect = (e) => {
-  //   setSelectState(e);
-  //   setPriority(e.value);
-  // };
+  const handleChangeSelect = (e) => {
+    setSelectState(e);
+    setPriority(e.value);
+  };
 
   const DropdownIndicator = () => {
     return (
       <div
-        data-cy="modal-edit-priority-dropdown"
+        data-cy="modal-update-priority-dropdown"
         className="icon-dropdown mr-2"
       ></div>
     );
   };
 
   return (
-    <div data-cy="modal-edit">
+    <div data-cy="modal-update">
       <Modal
         show={show}
         onHide={handleClose}
-        className="modal-edit-activity"
+        className="modal-add-activity"
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        id="ModalUpdate"
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter" className="pt-4">
-            <h4 className="font-weight-bold" data-cy="modal-edit-title">
-              Tambah List Item
+            <h4 className="font-weight-bold" data-cy="modal-update-title">
+              Edit Item
             </h4>
             <div
               className="icon-close"
+              data-cy="modal-update-close-button"
               onClick={handleClose}
-              data-cy="modal-edit-close-button"
             ></div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <label data-cy="modal-edit-name-title">NAMA LIST ITEM</label>
-            <div data-cy="modal-edit-name-input">
+            <label data-cy="modal-update-name-title">NAMA LIST ITEM</label>
+            <div data-cy="modal-update-name-input">
               <Form.Control
                 onChange={(e) => setItemName(e.target.value)}
                 placeholder="Tambahkan nama Activity"
-                id="AddFormTitle"
+                value={itemName}
               />
             </div>
-            <label data-cy="modal-edit-priority-title">PRIORITY</label>
+            <label data-cy="modal-update-priority-title">PRIORITY</label>
             <br />
             <Select
               defaultValue={options[0]}
               formatOptionLabel={formatOptionLabel}
               options={options}
               className="select-priority"
-              onChange={(e) => setPriority(e.value)}
-              id="AddFormPriority"
+              onChange={(e) => handleChangeSelect(e)}
+              value={selectState}
+              id="UpdateFormPriority"
               onMouseOver={() => console.log("lagi di atas awan")}
               components={{ DropdownIndicator }}
             />
@@ -152,8 +154,8 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
             className="btn btn-primary"
             onClick={submitAdd}
             disabled={itemName === ""}
-            id="AddFormSubmit"
-            data-cy="modal-edit-save-button"
+            id="UpdateFormSubmit"
+            data-cy="modal-update-save-button"
           >
             {isLoadingUpdateItem ? (
               <Spinner
