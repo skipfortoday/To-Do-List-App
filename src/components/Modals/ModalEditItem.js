@@ -69,7 +69,10 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
   }, [show]);
 
   const formatOptionLabel = ({ value, label }) => (
-    <div className="d-flex align-items-center">
+    <div
+      data-cy="modal-add-priority-item"
+      className="d-flex align-items-center"
+    >
       <div className={`label-indicator ${value}`}></div>
       <div>{label}</div>
     </div>
