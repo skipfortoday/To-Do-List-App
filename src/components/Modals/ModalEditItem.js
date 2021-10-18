@@ -69,10 +69,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
   }, [show]);
 
   const formatOptionLabel = ({ value, label }) => (
-    <div
-      className="d-flex align-items-center"
-      data-cy="modal-add-priority-item"
-    >
+    <div className="d-flex align-items-center">
       <div className={`label-indicator ${value}`}></div>
       <div>{label}</div>
     </div>
@@ -92,17 +89,8 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     setPriority(e.value);
   };
 
-  const DropdownIndicator = () => {
-    return (
-      <div
-        data-cy="modal-add-priority-dropdown"
-        className="icon-dropdown mr-2"
-      ></div>
-    );
-  };
-
   return (
-    <div data-cy="modal-add">
+    <div>
       <Modal
         show={show}
         onHide={handleClose}
@@ -114,27 +102,19 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter" className="pt-4">
-            <h4 className="font-weight-bold" data-cy="modal-add-title">
-              Edit Item
-            </h4>
-            <div
-              className="icon-close"
-              data-cy="modal-add-close-button"
-              onClick={handleClose}
-            ></div>
+            <h4 className="font-weight-bold">Edit Item</h4>
+            <div className="icon-close" onClick={handleClose}></div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <label data-cy="modal-add-name-title">NAMA LIST ITEM</label>
-            <div data-cy="modal-add-name-input">
-              <Form.Control
-                onChange={(e) => setItemName(e.target.value)}
-                placeholder="Tambahkan nama Activity"
-                value={itemName}
-              />
-            </div>
-            <label data-cy="modal-add-priority-title">PRIORITY</label>
+            <label>NAMA LIST ITEM</label>
+            <Form.Control
+              onChange={(e) => setItemName(e.target.value)}
+              placeholder="Tambahkan nama Activity"
+              value={itemName}
+            />
+            <label>PRIORITY</label>
             <br />
             <Select
               defaultValue={options[0]}
@@ -144,9 +124,6 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
               onChange={(e) => handleChangeSelect(e)}
               value={selectState}
               id="UpdateFormPriority"
-              onMouseOver={() => console.log("lagi di atas awan")}
-              components={{ DropdownIndicator }}
-              data-cy="modal-add-priority-dropdown"
             />
           </Form.Group>
         </Modal.Body>
@@ -156,7 +133,6 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
             onClick={submitAdd}
             disabled={itemName === ""}
             id="UpdateFormSubmit"
-            data-cy="modal-add-save-button"
           >
             {isLoadingUpdateItem ? (
               <Spinner
