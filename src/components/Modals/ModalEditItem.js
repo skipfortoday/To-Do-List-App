@@ -12,7 +12,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
   const resetState = () => dispatch(TodoActions.resetStateTodo());
   const updateItem = (data) => dispatch(TodoActions.updateItemRequest(data));
   const getActivityDetail = (data) =>
-  dispatch(TodoActions.getActivityDetailRequest(data));
+    dispatch(TodoActions.getActivityDetailRequest(data));
 
   const { isLoadingUpdateItem, errUpdateItem, dataUpdateItem } = useSelector(
     (state) => state.todo
@@ -20,14 +20,14 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
 
   const [itemName, setItemName] = useState("");
   const [priority, setPriority] = useState("very-high");
-  const [selectState, setSelectState] = useState({})
+  const [selectState, setSelectState] = useState({});
 
   useEffect(() => {
     if (errUpdateItem !== null) {
       handleClose();
       resetState();
     } else if (dataUpdateItem && show) {
-      getActivityDetail(params)
+      getActivityDetail(params);
       handleClose();
       resetState();
     }
@@ -59,15 +59,20 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
 
   useEffect(() => {
     if (editedItem) {
-      setItemName(editedItem.title)
-      setPriority(editedItem.priority)
-      setSelectState(options.find(option => option.value === editedItem.priority))
+      setItemName(editedItem.title);
+      setPriority(editedItem.priority);
+      setSelectState(
+        options.find((option) => option.value === editedItem.priority)
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show])
+  }, [show]);
 
   const formatOptionLabel = ({ value, label }) => (
-    <div className="d-flex align-items-center">
+    <div
+      data-cy="modal-add-priority-item"
+      className="d-flex align-items-center"
+    >
       <div className={`label-indicator ${value}`}></div>
       <div>{label}</div>
     </div>
@@ -77,18 +82,26 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     const data = {
       title: itemName,
       priority,
-      is_active: editedItem.is_active
-    }
-    updateItem({data, id: editedItem.id});
+      is_active: editedItem.is_active,
+    };
+    updateItem({ data, id: editedItem.id });
   };
 
   const handleChangeSelect = (e) => {
-    setSelectState(e)
-    setPriority(e.value)
-  }
+    setSelectState(e);
+    setPriority(e.value);
+  };
+  const DropdownIndicator = () => {
+    return (
+      <div
+        data-cy="modal-add-priority-dropdown"
+        className="icon-dropdown mr-2"
+      ></div>
+    );
+  };
 
   return (
-    <div>
+    <div data-cy="modal-add">
       <Modal
         show={show}
         onHide={handleClose}
@@ -101,18 +114,24 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter" className="pt-4">
             <h4 className="font-weight-bold">Edit Item</h4>
-            <div className="icon-close" onClick={handleClose}></div>
+            <div
+              className="icon-close"
+              data-cy="modal-add-close-button"
+              onClick={handleClose}
+            ></div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <label>NAMA LIST ITEM</label>
-            <Form.Control
-              onChange={(e) => setItemName(e.target.value)}
-              placeholder="Tambahkan nama Activity"
-              value={itemName}
-            />
-            <label>PRIORITY</label>
+            <label data-cy="modal-add-name-title">NAMA LIST ITEM</label>
+            <div data-cy="modal-add-name-input">
+              <Form.Control
+                onChange={(e) => setItemName(e.target.value)}
+                placeholder="Tambahkan nama Activity"
+                value={itemName}
+              />
+            </div>
+            <label data-cy="modal-add-priority-title">PRIORITY</label>
             <br />
             <Select
               defaultValue={options[0]}
@@ -121,6 +140,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
               className="select-priority"
               onChange={(e) => handleChangeSelect(e)}
               value={selectState}
+              components={{ DropdownIndicator }}
               id="UpdateFormPriority"
             />
           </Form.Group>
