@@ -8,7 +8,8 @@ import ModalDelete from "../Modals/ModalDelete";
 import "dayjs/locale/id";
 import ModalToast from "../Modals/ModalToast";
 import { Creators as TodoActions } from "../../redux/TodoRedux";
-import emptyItem from "../../assets/images/empty-activity.png"
+import emptyItem from "../../assets/images/empty-activity.png";
+import plusIcon from "../../assets/images/icon-plus.svg";
 
 function DashboardModule() {
   const history = useHistory();
@@ -31,7 +32,7 @@ function DashboardModule() {
   const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState("danger");
   const [deletedActivity, setDeletedActivity] = useState("");
-  
+
   useEffect(() => {
     if (errAddActivity !== null) {
       setShowToast(true);
@@ -39,11 +40,11 @@ function DashboardModule() {
       errAddActivity
         ? setModalText(errAddActivity)
         : setModalText("Gagal menambahkan activity");
-      resetState()
+      resetState();
     }
     if (dataAddActivity) {
-      getActivities()
-      resetState()
+      getActivities();
+      resetState();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errAddActivity, dataAddActivity]);
@@ -55,10 +56,10 @@ function DashboardModule() {
       errGetActivities
         ? setModalText(errGetActivities)
         : setModalText("Terjadi kesalahan. Gagal memuat list activity");
-      resetState()
+      resetState();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[errGetActivities])
+  }, [errGetActivities]);
 
   useEffect(() => {
     if (errDeleteActivity !== null) {
@@ -93,7 +94,11 @@ function DashboardModule() {
     <div className="container">
       <div className="todo-header">
         <h1 data-cy="activity-title">Activity</h1>
-        <button className="btn btn-primary" data-cy="activity-add-button" onClick={handleAddActivity}>
+        <button
+          className="btn btn-primary"
+          data-cy="activity-add-button"
+          onClick={handleAddActivity}
+        >
           {isLoadingAddActivity ? (
             <Spinner
               as="span"
@@ -104,7 +109,10 @@ function DashboardModule() {
             />
           ) : (
             <>
-              <span className="icon-plus"></span> {"Tambah"}
+              <span className="icon-plus">
+                <img src={plusIcon} alt="plus" />
+              </span>{" "}
+              {"Tambah"}
             </>
           )}
         </button>
@@ -122,15 +130,18 @@ function DashboardModule() {
           </div>
         ) : (
           <div className="row">
-            {
-              dataGetActivities?.data?.length < 1 &&
+            {dataGetActivities?.data?.length < 1 && (
               <div className="empty-item" data-cy="activity-empty-state">
                 <img src={emptyItem} alt="empty" onClick={handleAddActivity} />
               </div>
-            }
+            )}
             {dataGetActivities?.data?.map((item, key) => (
               <div key={item?.id} className="col-3">
-                <div className="activity-card" data-cy="activity-item" id={`itemTodo${key}`}>
+                <div
+                  className="activity-card"
+                  data-cy="activity-item"
+                  id={`itemTodo${key}`}
+                >
                   <div
                     className="activity-body"
                     onClick={() => history.push(`/detail/${item?.id}`)}
