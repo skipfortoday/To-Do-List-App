@@ -119,8 +119,8 @@ function ModalAddItem({ show, handleClose, title, text }) {
               className="select-priority"
               onChange={(e) => setPriority(e.value)}
               id="AddFormPriority"
-              onMouseOver={() => console.log("lagi di atas awan")}
               components={{ DropdownIndicator }}
+              data-cy="modal-add-priority-dropdown"
             />
           </Form.Group>
         </Modal.Body>
