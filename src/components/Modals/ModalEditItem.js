@@ -61,9 +61,9 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     if (editedItem) {
       setItemName(editedItem.title);
       setPriority(editedItem.priority);
-      setSelectState(
-        options.find((option) => option.value === editedItem.priority)
-      );
+      // setSelectState(
+      //   options.find((option) => option.value === editedItem.priority)
+      // );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
@@ -87,10 +87,10 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     updateItem({ data, id: editedItem.id });
   };
 
-  const handleChangeSelect = (e) => {
-    setSelectState(e);
-    setPriority(e.value);
-  };
+  // const handleChangeSelect = (e) => {
+  //   setSelectState(e);
+  //   setPriority(e.value);
+  // };
 
   const DropdownIndicator = () => {
     return (
