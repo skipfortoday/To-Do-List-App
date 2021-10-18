@@ -146,6 +146,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
               id="UpdateFormPriority"
               onMouseOver={() => console.log("lagi di atas awan")}
               components={{ DropdownIndicator }}
+              data-cy="modal-add-priority-dropdown"
             />
           </Form.Group>
         </Modal.Body>
