@@ -20,7 +20,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
 
   const [itemName, setItemName] = useState("");
   const [priority, setPriority] = useState("very-high");
-  const [selectState, setSelectState] = useState({});
+  // const [selectState, setSelectState] = useState({});
 
   useEffect(() => {
     if (errUpdateItem !== null) {
