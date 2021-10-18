@@ -70,8 +70,13 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
 
   const formatOptionLabel = ({ value, label }) => (
     <div
+<<<<<<< HEAD
+      data-cy="modal-add-priority-item"
+      className="d-flex align-items-center"
+=======
       className="d-flex align-items-center"
       data-cy="modal-add-priority-item"
+>>>>>>> 32358c995f284f8ab5f8cfca32adaf2dfb2113c9
     >
       <div className={`label-indicator ${value}`}></div>
       <div>{label}</div>
@@ -91,7 +96,10 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
     setSelectState(e);
     setPriority(e.value);
   };
+<<<<<<< HEAD
+=======
 
+>>>>>>> 32358c995f284f8ab5f8cfca32adaf2dfb2113c9
   const DropdownIndicator = () => {
     return (
       <div
@@ -114,9 +122,13 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter" className="pt-4">
+<<<<<<< HEAD
+            <h4 className="font-weight-bold">Edit Item</h4>
+=======
             <h4 className="font-weight-bold" data-cy="modal-add-title">
               Edit Item
             </h4>
+>>>>>>> 32358c995f284f8ab5f8cfca32adaf2dfb2113c9
             <div
               className="icon-close"
               data-cy="modal-add-close-button"
@@ -143,6 +155,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
               className="select-priority"
               onChange={(e) => handleChangeSelect(e)}
               value={selectState}
+              components={{ DropdownIndicator }}
               id="UpdateFormPriority"
               onMouseOver={() => console.log("lagi di atas awan")}
               components={{ DropdownIndicator }}
