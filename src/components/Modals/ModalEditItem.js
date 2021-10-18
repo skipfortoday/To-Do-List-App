@@ -71,7 +71,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
   const formatOptionLabel = ({ value, label }) => (
     <div
       className="d-flex align-items-center"
-      data-cy="modal-update-priority-item"
+      data-cy="modal-add-priority-item"
     >
       <div className={`label-indicator ${value}`}></div>
       <div>{label}</div>
@@ -95,14 +95,14 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
   const DropdownIndicator = () => {
     return (
       <div
-        data-cy="modal-update-priority-dropdown"
+        data-cy="modal-add-priority-dropdown"
         className="icon-dropdown mr-2"
       ></div>
     );
   };
 
   return (
-    <div data-cy="modal-update">
+    <div data-cy="modal-add">
       <Modal
         show={show}
         onHide={handleClose}
@@ -114,27 +114,27 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter" className="pt-4">
-            <h4 className="font-weight-bold" data-cy="modal-update-title">
+            <h4 className="font-weight-bold" data-cy="modal-add-title">
               Edit Item
             </h4>
             <div
               className="icon-close"
-              data-cy="modal-update-close-button"
+              data-cy="modal-add-close-button"
               onClick={handleClose}
             ></div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group>
-            <label data-cy="modal-update-name-title">NAMA LIST ITEM</label>
-            <div data-cy="modal-update-name-input">
+            <label data-cy="modal-add-name-title">NAMA LIST ITEM</label>
+            <div data-cy="modal-add-name-input">
               <Form.Control
                 onChange={(e) => setItemName(e.target.value)}
                 placeholder="Tambahkan nama Activity"
                 value={itemName}
               />
             </div>
-            <label data-cy="modal-update-priority-title">PRIORITY</label>
+            <label data-cy="modal-add-priority-title">PRIORITY</label>
             <br />
             <Select
               defaultValue={options[0]}
@@ -155,7 +155,7 @@ function ModalEditItem({ show, handleClose, title, text, editedItem }) {
             onClick={submitAdd}
             disabled={itemName === ""}
             id="UpdateFormSubmit"
-            data-cy="modal-update-save-button"
+            data-cy="modal-add-save-button"
           >
             {isLoadingUpdateItem ? (
               <Spinner
